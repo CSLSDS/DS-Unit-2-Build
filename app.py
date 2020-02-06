@@ -1,51 +1,58 @@
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
-import pandas as pd
+import dash_bootstrap_components as dbc
 
-external_stylesheets=['https://codepen.io/chriddyp/pen/bWLwgP.css']
+"""
+https://github.com/facultyai/dash-bootstrap-components
 
-app=dash.Dash(__name__, external_stylesheets=external_stylesheets)
+dash-bootstrap-components provides Bootstrap components.
 
-df=pd.read_csv('raw.githubusercontent.com/arewelearningyet/DS-Unit-2-Build/master/df')
+Plotly Dash is great! However, creating the initial layout can require a lot 
+of boilerplate. dash-bootstrap-components reduces this boilerplate by providing 
+standard layouts and high-level components.
 
+A good way to start customising the stylesheet is to use an alternative 
+pre-compiled theme. Bootswatch is a great place to find new themes. Links to 
+CDNs for each of the Bootswatch styles are also included , and can be used 
+with the external_stylesheets argument of the Dash constructor:
 
-colors = {
-        'background': '#111111',
-        'text': '#7FDBFF'
-        }
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.CERULEAN])
 
-app.layout=html.Div(style={'backgroundColor': colors['background']}, children=[
-    html.H1(children='Hello Dash',
-        style={
-            'textAlign': 'center',
-            'color': colors['text']
-            }
-        ),
+Go to https://bootswatch.com/ to preview these Bootswatch themes:
 
-    html.Div(children='Dash: A web application framework for Python.', style={
-        'textAlign': 'center',
-        'color': colors['text']
-        }),
+dbc.themes.BOOTSTRAP
+dbc.themes.CERULEAN
+dbc.themes.COSMO
+dbc.themes.CYBORG
+dbc.themes.DARKLY
+dbc.themes.FLATLY
+dbc.themes.JOURNAL
+dbc.themes.LITERA
+dbc.themes.LUMEN
+dbc.themes.LUX
+dbc.themes.MATERIA
+dbc.themes.MINTY
+dbc.themes.PULSE
+dbc.themes.SANDSTONE
+dbc.themes.SIMPLEX
+dbc.themes.SKETCHY
+dbc.themes.SLATE
+dbc.themes.SOLAR
+dbc.themes.SPACELAB
+dbc.themes.SUPERHERO
+dbc.themes.UNITED
+dbc.themes.YETI
+"""
 
-    dcc.Graph(
-        id='',
-        figure={
-            'data':[
-                {'x':[1,2,3], 'y':[4,1,2], 'type':'bar', 'name': 'SF'},
-                {'x':[1,2,3], 'y':[2,4,5], 'type':'bar', 'name': 'Montreal'},
-                ],
-            'layout':{
-                'plot_bgcolor': colors['background'],
-                'paper_bgcolor': colors['background'],
-                'font':{
-                    'color': colors['text']
-                    }
-                }
-            }
-        )
-    ])
+external_stylesheets = [
+    dbc.themes.LUX, # Bootswatch theme
+    'https://use.fontawesome.com/releases/v5.9.0/css/all.css', # for social media icons
+]
 
-if __name__=='__main__':
-    app.run_server(debug=True)
+meta_tags=[
+    {'name': 'viewport', 'content': 'width=device-width, initial-scale=1'}
+]
 
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets, meta_tags=meta_tags)
+app.config.suppress_callback_exceptions = True # see https://dash.plot.ly/urls
+app.title = 'Females in the House' # appears in browser title bar
+server = app.server
